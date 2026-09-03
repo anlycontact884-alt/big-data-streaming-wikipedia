@@ -88,6 +88,7 @@ def read_stream():
             continue
 
         if msg.error():
+            st.session_state.kafka_error = str(msg.error())
             continue
 
         try:
@@ -156,7 +157,14 @@ else:
 
     event_rate = 0
 
+# ============================================================
+# KAFKA ERROR DISPLAY
+# ============================================================
 
+if "kafka_error" in st.session_state:
+    st.error(
+        f"Kafka Error: {st.session_state.kafka_error}"
+    )
 # ============================================================
 # 8. HEADER
 # ============================================================
